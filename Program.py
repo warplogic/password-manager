@@ -10,15 +10,10 @@ class Program:
     def run(self) -> None:
         co = CommandOptions()
         co.sort_options(sys.argv)
-        
-        def display_help_menu():
-            menu = HelpMenu()
-            menu.display()
-            exit()
-        
+
         if len(co.options) == 0 or "keyword" not in co.options:
-            display_help_menu()
-        
+            self.__display_help_menu()
+
         if co.options["keyword"] == "generate":
             generator = PasswordGenerator(co.options)
             password = generator.generate()
@@ -26,5 +21,9 @@ class Program:
             if "-o" in co.options or "--once" in co.options:
                 print(password)
         else:
-            display_help_menu()
+            self.__display_help_menu()
 
+    def __display_help_menu(self):
+        menu = HelpMenu()
+        menu.display()
+        exit()
